@@ -159,6 +159,12 @@ resource "azurerm_function_app_slot" "checkout" {
   storage_account_name       = azurerm_storage_account.sa.name
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
   os_type = "linux"
+  app_settings = {
+      "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.app.instrumentation_key
+      "FUNCTIONS_WORKER_RUNTIME"       = "node"
+      "WEBSITE_NODE_DEFAULT_VERSION"   = "~14"
+      "WEBSITE_CONTENTOVERVNET"        = "1"
+  }
 }
 
 resource "null_resource" "publish_func_checkout"{
