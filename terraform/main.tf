@@ -68,7 +68,7 @@ resource "azurerm_app_service_plan" "asp" {
   name                = "asp-${local.func_name}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  kind                = "elastic"
+  kind                = "functionapp"
   reserved = true
   sku {
     tier = "Dynamic"
@@ -158,4 +158,5 @@ resource "azurerm_function_app_slot" "checkout" {
   function_app_name          = azurerm_function_app.func.name
   storage_account_name       = azurerm_storage_account.sa.name
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
+  os_type = "linux"
 }
