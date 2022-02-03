@@ -138,6 +138,9 @@ EOT
 }
 
 resource "null_resource" "publish_func"{
+  depends_on = [
+    azurerm_function_app_slot.checkout
+  ]
   triggers = {
     index = "${timestamp()}"
   }
