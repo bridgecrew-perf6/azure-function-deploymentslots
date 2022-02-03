@@ -146,7 +146,7 @@ resource "null_resource" "publish_func"{
   }
   provisioner "local-exec" {
     working_dir = "../funcactive"
-    command     = "func azure functionapp publish ${azurerm_function_app.func.name} --build remote"
+    command     = "npm install && func azure functionapp publish ${azurerm_function_app.func.name}"
   }
 }
 
@@ -170,6 +170,6 @@ resource "null_resource" "publish_func_checkout"{
   }
   provisioner "local-exec" {
     working_dir = "../funccheckout"
-    command     = "func azure functionapp publish ${azurerm_function_app.func.name} --build remote --slot checkout"
+    command     = "npm install && func azure functionapp publish ${azurerm_function_app.func.name} --slot checkout"
   }
 }
