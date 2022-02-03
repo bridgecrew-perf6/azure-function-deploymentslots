@@ -160,3 +160,16 @@ resource "azurerm_function_app_slot" "checkout" {
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
   os_type = "linux"
 }
+
+resource "null_resource" "publish_func_checkout"{
+  depends_on = [
+    azurerm_function_app_slot.checkout
+  ]
+  triggers = {
+    index = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    working_dir = "../funccheckout"
+    command     = "func azure functionapp publish ${azurerm_function_app.func.name} --slot checkout"
+  }
+}
